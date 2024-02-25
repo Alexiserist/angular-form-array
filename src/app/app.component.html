@@ -1,0 +1,38 @@
+<div style=" height: 100vh;width: 100%;display: flex; align-items: center; justify-content: center; overflow-y: hidden;">
+  <div>
+    <form [formGroup]="formGroup">
+      <table style="border: 1px solid black; box-shadow: inset;">
+        <thead >
+          <th style="width: 10rem; text-align: center; " class="border-bottom">First Name</th>
+          <th style="width: 10rem; text-align: center; "  class="border-bottom">Last Name</th>
+        </thead>
+        <tbody>
+          <ng-container formArrayName="data" *ngFor="let row of formArrayData.controls; let i = index"  >
+            <tr [formGroupName]="i">
+              <td style="text-align: center;">
+                <input formControlName="firstName" 
+                [ngStyle]="{'border-color': formGroup.controls['data'].get(i.toString())?.get('firstName')?.touched && formGroup.controls['data'].get(i.toString())?.get('firstName')?.errors ? 'red' : ''}"
+                >
+              </td>
+              <td style="text-align: center;">
+                <input  formControlName="lastName" 
+                [ngStyle]="{'border-color': formGroup.controls['data'].get(i.toString())?.get('lastName')?.touched && formGroup.controls['data'].get(i.toString())?.get('lastName')?.errors ? 'red' : ''}"
+                >
+              </td>
+            </tr>
+          </ng-container>
+        </tbody>
+      </table>
+    </form>
+    <div style="margin-top: 1rem;">
+      <button style="width: 7rem; height: 2rem; background-color: gray; border-radius: .5rem;" (click)="finalArrayData()">Get Form Data</button>
+    </div>
+
+    <div>
+      Data: {{finalData}}
+    </div>
+    <div>
+      FormGroup Invalid: {{formGroup.invalid}}
+    </div>
+  </div>
+</div>
